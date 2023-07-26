@@ -24,7 +24,9 @@
 // Random numbers
 //////////////////////////////////////////////////////////////////////////////////
 
+#ifndef M_PI
 const double M_PI = 3.141592653f;
+#endif 
 
 extern std::mt19937 g_mt;
 typedef std::gamma_distribution<> D_gamma;
