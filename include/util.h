@@ -31,7 +31,7 @@
 #define Cosh cosh
 #define Sinh sinh
 
-const double Pi(M_PI);
+const double Pi(3.141592653);
 
 #define INV_M_PI 0.31830988618379067153f        /* 1/pi */
 #define SQRT_M_PI 1.77245385090551602729f       /* sqrt(pi) */
@@ -53,20 +53,20 @@ T StringToNumber(const std::string &Text)
     return ss >> result ? result : 0;
 }
 
-double sqr(double x)
+inline double sqr(double x)
 {
     return x * x;
 }
 
 // clamp a value into a specified range
-double Clamp(const double x, const double min, const double max)
+inline double Clamp(const double x, const double min, const double max)
 {
     return std::max(std::min(max, x), min);
 }
 
 // map a continuous range [min,max] into dx sized intervals and return the integer index
 // of an element x
-size_t discreteMap(const double min, const double max, const double dx, const double x)
+inline size_t discreteMap(const double min, const double max, const double dx, const double x)
 {
     const double clampx = Clamp(x, min, max);
     return size_t(floor((clampx - min) / dx));

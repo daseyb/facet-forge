@@ -18,34 +18,39 @@
 
 #include <vector.h>
 #include <random>
+#include <math.h>
 
 //////////////////////////////////////////////////////////////////////////////////
 // Random numbers
 //////////////////////////////////////////////////////////////////////////////////
 
-double RandomReal()
+const double M_PI = 3.141592653f;
+
+extern std::mt19937 g_mt;
+typedef std::gamma_distribution<> D_gamma;
+
+inline double RandomReal()
 {
-    return drand48();
+    std::uniform_real_distribution<double> r(0., 1.);
+    return r(g_mt);
 }
 
-double RandomReal(double a, double b)
+inline double RandomReal(double a, double b)
 {
-    double r = drand48();
+    std::uniform_real_distribution<double> rd(0., 1.);
+    double r = rd(g_mt);
     return r * b + (1.0 - r) * a;
 }
 
-double RandomGauss()
+inline double RandomGauss()
 {
     return sqrt(2.0) * cos(2 * M_PI * RandomReal()) * sqrt(-log(RandomReal()));
 }
 
-std::mt19937 g_mt;
-typedef std::gamma_distribution<> D_gamma;
 
 // random Gamma variate for general shape parameter a > 0.0
-double RandomGamma(const double a)
+inline double RandomGamma(const double a)
 {
-
     D_gamma r(a, 1.0);
     return r(g_mt);
 }
@@ -54,19 +59,19 @@ double RandomGamma(const double a)
 // Random Directions
 //////////////////////////////////////////////////////////////////////////////////
 
-Vector2 diskSample2D(const double radius)
+inline Vector2 diskSample2D(const double radius)
 {
     const double phi = RandomReal(0.0, 2 * M_PI);
     return radius * sqrt(RandomReal()) * Vector2(cos(phi), sin(phi));
 }
 
-Vector3 diskSample(const double radius)
+inline Vector3 diskSample(const double radius)
 {
     const double phi = RandomReal(0.0, 2 * M_PI);
     return radius * sqrt(RandomReal()) * Vector3(cos(phi), sin(phi), 0.0);
 }
 
-Vector3 isotropicDir()
+inline Vector3 isotropicDir()
 {
     const double w = RandomReal(-1.0, 1.0);
     const double p = RandomReal(0.0, 2.0 * M_PI);
@@ -74,7 +79,7 @@ Vector3 isotropicDir()
     return Vector3(w, s * cos(p), s * sin(p));
 }
 
-Vector3 lambertDir()
+inline Vector3 lambertDir()
 {
     const double w = sqrt(RandomReal());
     const double p = RandomReal(0.0, 2.0 * M_PI);
@@ -83,7 +88,7 @@ Vector3 lambertDir()
 }
 
 // sample a Lambertian direction about normal n:
-Vector3 lambertDir(const Vector3 &n)
+inline Vector3 lambertDir(const Vector3 &n)
 {
     const Vector3 local(lambertDir());
     Vector3 x, y;

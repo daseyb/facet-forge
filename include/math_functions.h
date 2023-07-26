@@ -18,7 +18,7 @@
 
 #include <cfloat>
 
-const double sign(const double a)
+inline const double sign(const double a)
 {
     if (a > 0.0)
     {
@@ -30,17 +30,17 @@ const double sign(const double a)
     }
 }
 
-bool IsFiniteNumber(float x)
+inline bool IsFiniteNumber(float x)
 {
     return (x <= FLT_MAX && x >= -FLT_MAX);
 }
 
-bool IsFiniteNumber(double x)
+inline bool IsFiniteNumber(double x)
 {
     return (x <= DBL_MAX && x >= -DBL_MAX);
 }
 
-double erfinv(double x)
+inline double erfinv(double x)
 {
     double w, p;
     w = -log((1.0 - x) * (1.0 + x));
@@ -85,7 +85,7 @@ static double abgam(double x)
     gam[4] = 22999. / 22737.;
     gam[5] = 29944523. / 19733142.;
     gam[6] = 109535241009. / 48264275462.;
-    temp = 0.5 * log(2 * M_PI) - x + (x - 0.5) * log(x) + gam[0] / (x + gam[1] / (x + gam[2] / (x + gam[3] / (x + gam[4] / (x + gam[5] / (x + gam[6] / x))))));
+    temp = 0.5 * log(2 * Pi) - x + (x - 0.5) * log(x) + gam[0] / (x + gam[1] / (x + gam[2] / (x + gam[3] / (x + gam[4] / (x + gam[5] / (x + gam[6] / x))))));
 
     return temp;
 }

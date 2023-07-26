@@ -67,37 +67,37 @@ struct Vector2
     };
 };
 
-Vector2 operator*(const double c, const Vector2 &v)
+inline Vector2 operator*(const double c, const Vector2 &v)
 {
     return Vector2(c * v.x, c * v.y);
 }
 
-Vector2 operator-(const Vector2 &a, const Vector2 &b)
+inline Vector2 operator-(const Vector2 &a, const Vector2 &b)
 {
     return Vector2(a.x - b.x, a.y - b.y);
 }
 
-bool operator==(const Vector2 &a, const Vector2 &b)
+inline bool operator==(const Vector2 &a, const Vector2 &b)
 {
     return a.x == b.x && a.y == b.y;
 }
 
-bool operator!=(const Vector2 &a, const Vector2 &b)
+inline bool operator!=(const Vector2 &a, const Vector2 &b)
 {
     return a.x != b.x || a.y != b.y;
 }
 
-double dot(const Vector2 &a, const Vector2 &b)
+inline double dot(const Vector2 &a, const Vector2 &b)
 {
     return a.x * b.x + a.y * b.y;
 }
 
-double Norm(const Vector2 &v)
+inline double Norm(const Vector2 &v)
 {
     return sqrt(v.x * v.x + v.y * v.y);
 }
 
-Vector2 normalize(const Vector2 &v)
+inline Vector2 normalize(const Vector2 &v)
 {
     return v * (1.0 / Norm(v));
 }
@@ -199,52 +199,52 @@ struct Vector3
     };
 };
 
-Vector3 operator*(const double c, const Vector3 &v)
+inline Vector3 operator*(const double c, const Vector3 &v)
 {
     return Vector3(c * v.x, c * v.y, c * v.z);
 }
 
-Vector3 operator/(const double c, const Vector3 &v)
+inline Vector3 operator/(const double c, const Vector3 &v)
 {
     return Vector3(c / v.x, c / v.y, c / v.z);
 }
 
-Vector3 operator-(const Vector3 &a, const Vector3 &b)
+inline Vector3 operator-(const Vector3 &a, const Vector3 &b)
 {
     return Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
-Vector3 operator/(const Vector3 &a, const Vector3 &b)
+inline Vector3 operator/(const Vector3 &a, const Vector3 &b)
 {
     return Vector3(a.x / b.x, a.y / b.y, a.z / b.z);
 }
 
-bool operator==(const Vector3 &a, const Vector3 &b)
+inline bool operator==(const Vector3 &a, const Vector3 &b)
 {
     return a.x == b.x && a.y == b.y && a.z == b.z;
 }
 
-bool operator!=(const Vector3 &a, const Vector3 &b)
+inline bool operator!=(const Vector3 &a, const Vector3 &b)
 {
     return a.x != b.x || a.y != b.y || a.z != b.z;
 }
 
-double dot(const Vector3 &a, const Vector3 &b)
+inline double dot(const Vector3 &a, const Vector3 &b)
 {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-double Norm(const Vector3 &v)
+inline double Norm(const Vector3 &v)
 {
     return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
-Vector3 normalize(const Vector3 &v)
+inline Vector3 normalize(const Vector3 &v)
 {
     return v * (1.0 / Norm(v));
 }
 
-Vector3 Clamp(const Vector3 &v, const double min, const double max)
+inline Vector3 Clamp(const Vector3 &v, const double min, const double max)
 {
     return Vector3(
         Clamp(v.x, min, max),
@@ -252,18 +252,18 @@ Vector3 Clamp(const Vector3 &v, const double min, const double max)
         Clamp(v.z, min, max));
 }
 
-Vector3 Cross(const Vector3 &a, const Vector3 &b)
+inline Vector3 Cross(const Vector3 &a, const Vector3 &b)
 {
     return Vector3(-b.y * a.z + a.y * b.z, b.x * a.z - a.x * b.z, -b.x * a.y + a.x * b.y);
 }
 
-Vector3 reflect(const Vector3 &in, const Vector3 &n)
+inline Vector3 reflect(const Vector3 &in, const Vector3 &n)
 {
     return -in + 2.0 * dot(in, n) * n;
 }
 
 // build orthonormal basis (Building an Orthonormal Basis from a 3D Unit Vector Without Normalization, [Frisvad2012])
-void buildOrthonormalBasis(Vector3 &omega_1, Vector3 &omega_2, const Vector3 &omega_3)
+inline void buildOrthonormalBasis(Vector3 &omega_1, Vector3 &omega_2, const Vector3 &omega_3)
 {
     if (omega_3.z < -0.9999999f)
     {

@@ -23,7 +23,7 @@
 // Fresnel
 //////////////////////////////////////////////////////////////////////////////////
 
-double evalF(const double g, const double c)
+inline double evalF(const double g, const double c)
 {
   return (pow(-c + g, 2) * (1 + pow(-1 + c * (c + g), 2) / pow(1 + c * (-c + g), 2))) /
          (2. * pow(c + g, 2));
@@ -31,7 +31,7 @@ double evalF(const double g, const double c)
 
 // costheta = 1 is normal incidence
 // eta is ratio of new medium / current medium
-double DielectricR(const double costheta, const double eta)
+inline double DielectricR(const double costheta, const double eta)
 {
   const double sqrtinput = eta * eta - 1.0 + costheta * costheta;
   if (sqrtinput <= 0.0)
@@ -46,19 +46,23 @@ double DielectricR(const double costheta, const double eta)
 
 // careful: "in" here is the direction light is MOVING before striking the surface
 //  (pointing away from the camera/light)
-Vector3 refract(const Vector3 in, const Vector3 normal, const double etai, const double etat)
+inline Vector3 refract(const Vector3 in, const Vector3 normal, const double etai, const double etat)
 {
   return (etai * (in - normal * dot(in, normal))) / etat -
          normal * Sqrt(1 - (pow(etai, 2) * (1 - pow(dot(in, normal), 2))) / pow(etat, 2));
 }
 
-double refractCosine(const double ui, const double etai, const double etao)
+inline double refractCosine(const double ui, const double etai, const double etao)
 {
   return sqrt(1.0 - etai * etai * (1.0 - ui * ui) / (etao * etao));
 }
 
-double ConductorR(const double costheta, const double etai, const double eta, const double k)
+inline double ConductorR(const double costheta, const double etai, const double eta, const double k)
 {
+    if (eta == 0. && k == 0.) {
+        return 1.;
+    }
+
   return ((Power(etai, 2) - 2 * Power(costheta, 2) * Power(etai, 2) + Power(costheta, 4) * Power(etai, 2) +
            Power(costheta, 2) * Sqrt(4 * Power(eta, 2) * Power(k, 2) +
                                      Power(Power(eta, 2) + (-1 + Power(costheta, 2)) * Power(etai, 2) - Power(k, 2), 2))) *
@@ -78,7 +82,7 @@ double ConductorR(const double costheta, const double etai, const double eta, co
 
 // exact [Dunkle 1963]
 // n = ior_ratio
-double SmoothDielectricHemisphericalAlbedo(const double n)
+inline double SmoothDielectricHemisphericalAlbedo(const double n)
 {
   if (n <= 0.0)
   {
