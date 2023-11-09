@@ -1,3 +1,4 @@
 #include <random.h>
 
-std::mt19937 g_mt;
+std::random_device dev;
+std::mt19937 g_mt(dev());
