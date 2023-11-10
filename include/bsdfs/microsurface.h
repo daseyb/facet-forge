@@ -25,9 +25,11 @@
 class Microsurface : public BSDF
 {
 public:
+    size_t m_max_walk_length = MAX_WALK_LENGTH;
     const NDF *m_ndf;
 
-    Microsurface(NDF *ndf) : m_ndf(ndf)
+    Microsurface(NDF *ndf, size_t max_walk_length = MAX_WALK_LENGTH) 
+        : m_ndf(ndf), m_max_walk_length(max_walk_length)
     {
     }
 
@@ -44,7 +46,7 @@ public:
 
         // random walk
         size_t collision_count = 0;
-        while (collision_count < MAX_WALK_LENGTH + 1)
+        while (collision_count < m_max_walk_length + 1)
         {
             // next height
             Vector3 wm; // microfacet normal
@@ -95,7 +97,7 @@ public:
 
         // random walk
         size_t collision_count = 0;
-        while (collision_count < MAX_WALK_LENGTH)
+        while (collision_count < m_max_walk_length)
         {
             // next height
             Vector3 wm; // microfacet normal
